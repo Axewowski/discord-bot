@@ -1,18 +1,9 @@
-import discord
-from discord.ext import commands
 import os
 
-intents = discord.Intents.none()
-intents.message_content = True  # tylko to
+token = os.environ.get("DISCORD_TOKEN")
 
-bot = commands.Bot(command_prefix="!", intents=intents)
-
-@bot.event
-async def on_ready():
-    print(f"✅ Zalogowano jako {bot.user}")
-
-@bot.command()
-async def ping(ctx):
-    await ctx.send("🏓 Pong!")
-
-bot.run(os.environ["DISCORD_TOKEN"])
+if token:
+    print("✅ Zmienna środowiskowa 'DISCORD_TOKEN' została odczytana!")
+    print("Przykładowy fragment tokena:", token[:10], "...")
+else:
+    print("❌ Nie udało się odczytać zmiennej środowiskowej 'DISCORD_TOKEN'")
